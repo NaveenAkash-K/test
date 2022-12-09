@@ -1,0 +1,56 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form method="post" id="frmContact">
+        Fullname: <input type="text" name="fullname" id="fullname" required /><br><br>
+        Email: <input type="email" name="email" id="email" required /><br><br>
+        password: <input type="password" name="pass" id="pass" required><br><br>
+        Subject: <input type="text" name="subject" id="subject" /><br><br>
+        Message: <textarea name="message" id="message"></textarea><br><br>
+        DOB: <input type="date" name="dob" id="dob" /><br><br>
+        <button type="submit" name="submit">Submit</button>
+    </form>
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.11/firebase-app.js";
+        import { getDatabase, ref, set, get, child } from "https://www.gstatic.com/firebasejs/9.6.11/firebase-database.js";
+         
+        // Paste the code from Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyDWdqC9cBxcy2rsB5FxD57KP-L9rjJVQ6o",
+            authDomain: "test-ff059.firebaseapp.com",
+            projectId: "test-ff059",
+            storageBucket: "test-ff059.appspot.com",
+            messagingSenderId: "618117784162",
+            appId: "1:618117784162:web:af19b39450fc018eb1273b",
+            measurementId: "G-VND9TWY1C5"
+        };
+         
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+         
+        // Get a reference to the database service
+        const db = getDatabase(app);
+         
+        document.getElementById('frmContact').addEventListener('submit', function(e) {
+            e.preventDefault();
+            set(ref(db, 'users/'+ Math.random().toString(36).slice(2, 7)), {
+                name: document.getElementById('fullname').value,
+                email: document.getElementById('email').value,
+                password: document.getElementById('pass').value,
+                subject: document.getElementById('subject').value,
+                message: document.getElementById('message').value,
+                DOB: document.getElementById('dob').value
+            });
+         
+            alert('Your form is submitted');
+            document.getElementById('frmContact').reset();
+        });
+        </script>
+</body>
+</html>
